@@ -1,41 +1,38 @@
 import { DynamoDB } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
+
 const dynamo = DynamoDBDocument.from(new DynamoDB());
+
+
+const getMaxRecords = async (params, records = []) => {
+  const data = await dynamo.scan(params);
+  
+  if (data['Items'].length > 0) {
+    records = [...records, ...data['Items']]
+  }
+
+  if (data.LastEvaluatedKey) {
+    params.ExclusiveStartKey = data.LastEvaluatedKey
+    return await getMaxRecords(params, records)
+  } else {
+    return allData
+  }
+}
 
 
 export async function readRecords(tableName) {
 
-    const params = {
-      TableName : tableName,
-      ProjectionExpression:['timeStamp', 'cryptoCoin']
-      };
-      const allRecords = [];
+  const params = {
+    TableName : tableName,
+    ProjectionExpression:'cryptoCoin'
+    };
 
-      try {
-
-        const getAllRecords = async (params) => { 
-
-          console.log("Querying Table");
-          let records = await dynamo.query(params).promise();
-      
-          if(records['Items'].length > 0) {
-              allRecords = [...allRecords, ...records['Items']];
-          }
-      
-          if (records.LastEvaluatedKey) {
-              params.ExclusiveStartKey = records.LastEvaluatedKey;
-              return await getAllRecords(params);
-      
-          } else {
-              return records;
-          }
-      }
-
-      return allRecords;
-
-      } catch (error) {
-        console.warn(error);
-        throw error;
-      }
+    try {
+    const records = await getAllData(params);
+    return records;
+    } catch (error) {
+      console.warn(error);
+      throw error;
+    }
 
 }
