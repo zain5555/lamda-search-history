@@ -1,0 +1,23 @@
+{
+  "name": "lamda-search-history",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zain5555/lamda-search-history.git"
+  },
+  "author": "Zain ul Abideen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zain5555/lamda-search-history/issues"
+  },
+  "homepage": "https://github.com/zain5555/lamda-search-history#readme",
+  "dependencies": {
+
+  }
+}
