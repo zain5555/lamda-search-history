@@ -7,7 +7,7 @@ export async function readRecords(tableName) {
 
     const params = {
       TableName : tableName,
-      ProjectionExpression:['sort_number', 'current_balance','side']
+      ProjectionExpression:['timeStamp', 'cryptoCoin']
       };
       const allRecords = [];
 
@@ -27,7 +27,7 @@ export async function readRecords(tableName) {
               return await getAllRecords(params);
       
           } else {
-              return data;
+              return records;
           }
       }
 
