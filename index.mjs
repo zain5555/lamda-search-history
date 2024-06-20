@@ -3,8 +3,6 @@ import { tableName, responseSuccessMessage } from "./constants.mjs";
 
 
 export async function handler(event) {
-    console.log(event);
-
     try {
 
         let responseAx = await readRecords(tableName);

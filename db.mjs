@@ -15,7 +15,7 @@ const getMaxRecords = async (params, records = []) => {
     params.ExclusiveStartKey = data.LastEvaluatedKey;
     return await getMaxRecords(params, records);
   } else {
-    return records
+    return records;
   }
 }
 
