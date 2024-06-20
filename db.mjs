@@ -8,14 +8,14 @@ const getMaxRecords = async (params, records = []) => {
   const data = await dynamo.scan(params);
   
   if (data['Items'].length > 0) {
-    records = [...records, ...data['Items']]
+    records = [...records, ...data['Items']];
   }
 
   if (data.LastEvaluatedKey) {
-    params.ExclusiveStartKey = data.LastEvaluatedKey
-    return await getMaxRecords(params, records)
+    params.ExclusiveStartKey = data.LastEvaluatedKey;
+    return await getMaxRecords(params, records);
   } else {
-    return allData
+    return records
   }
 }
 
@@ -28,7 +28,7 @@ export async function readRecords(tableName) {
     };
 
     try {
-    const records = await getAllData(params);
+    const records = await getMaxRecords(params);
     return records;
     } catch (error) {
       console.warn(error);
