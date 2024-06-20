@@ -24,7 +24,7 @@ export async function readRecords(tableName) {
 
   const params = {
     TableName : tableName,
-    ProjectionExpression:'cryptoCoin'
+    ProjectionExpression:'cryptoCoin, timeCreated'
     };
 
     try {
