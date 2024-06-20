@@ -3,7 +3,7 @@ import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
 const dynamo = DynamoDBDocument.from(new DynamoDB());
 
 
-export async function readRecords() {
+export async function readRecords(tableName) {
 
     const params = {
       TableName : tableName,
@@ -24,7 +24,7 @@ export async function readRecords() {
       
           if (records.LastEvaluatedKey) {
               params.ExclusiveStartKey = records.LastEvaluatedKey;
-              return await getAllData(params);
+              return await getAllRecords(params);
       
           } else {
               return data;
